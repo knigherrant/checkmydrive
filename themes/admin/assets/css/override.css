@@ -1,0 +1,10 @@
+.alert.alert-info{
+    background: #dd4b3b !important;
+    border: 1px solid #dd4b3b;
+}
+.sidebar-menu .treeview-menu > li > a{
+    padding: 10px 5px 10px 30px;
+}
+.skin-blue .sidebar-menu > li > .treeview-menu{
+    padding: 10px 0px;
+}

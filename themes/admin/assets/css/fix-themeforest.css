@@ -1,0 +1,41 @@
+
+.ct_ctn .maincontent .two_third .left{padding-right: 0}
+.ct_ctn .maincontent .left{min-height: 500px}
+.container-main{
+    padding: 0;
+}
+.ct_ctn h3{margin: 0}
+.ct_ctn .accountinfo h3{line-height: 15px}
+header.header, .subhead-collapse, #system-message-container{display: none}
+.ct_ctn li{line-height: 21px}
+.ct_ctn #search input{
+    border-radius: 0;
+    width: auto;
+    box-shadow: none;
+}
+.ct_ctn .header{padding-top: 13px}
+.ct_ctn .progress {
+    background-color: transparent;
+    background-image: none;
+    box-shadow: none;
+    height: auto;
+    margin: 5px 0;
+}
+.ct_ctn .progress .bar{
+    float: none;
+    width: auto;
+}
+
+.ct_ctn .notification .close{opacity: 1}
+.ct_ctn .external-event{cursor: auto}
+.ct_ctn .leftmenu li a{padding-left: 10px}
+.ct_ctn .leftmenu li a span{margin-right: 25px; height: 1px; float: left}
+.ct_ctn .leftmenu i{font-size: 16px; text-decoration: none; display: inline-block; width: 25px; text-align: center; margin-right: 5px}
+.ct_ctn .widgetlist i{font-size: 50px}
+.ct_ctn .tabmenu ul li a span{padding-left: 15px}
+.ct_ctn .external-event{padding: 1px 20px 1px 5px; position: relative; border-radius: 4px}
+.ct_ctn .widgetbox .content.overflownone{overflow: visible}
+.ct_ctn .widgetbox .content, .ct_ctn .widgetbox h3 span{padding: 10px}
+
+.ct_ctn .topheader .picicon { position: absolute; top: 7px; left: 8px; width: 14px; height: 15px; background-image: url(../images/gallery.png); }
+.ct_ctn .topheader .picicon.thiconhover { position: absolute; top: 7px; left: 8px; width: 14px; height: 15px; background-image: url(../themeforest-admin/images/icons/gallery.png); }

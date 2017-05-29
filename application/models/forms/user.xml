@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<form>
+	<fieldset name="user_details">
+		<field name="name" type="text"
+			class="inputbox"
+			description="USERS_FIELD_NAME_DESC"
+			label="USERS_FIELD_NAME_LABEL"
+			required="true"
+			size="30"
+		/>
+<!--
+		<field name="username" type="text"
+			class="inputbox"
+			description="USERS_FIELD_USERNAME_DESC"
+			label="USERS_FIELD_USERNAME_LABEL"
+			required="true"
+			size="30"
+		/>
+-->
+		<field name="password" type="password"
+			autocomplete="off"
+			class="inputbox validate-password"
+			description="USERS_FIELD_PASSWORD_DESC"
+			filter="raw"
+			validate="password"
+			label="JGLOBAL_PASSWORD"
+			size="30"
+		/>
+
+		<field name="password2" type="password"
+			autocomplete="off"
+			class="inputbox validate-password"
+			description="USERS_FIELD_PASSWORD2_DESC"
+			filter="raw"
+			label="USERS_FIELD_PASSWORD2_LABEL"
+			size="30"
+			validate="equals"
+			field="password"
+		/>
+
+		<field name="email" type="email"
+			class="inputbox"
+			description="USERS_FIELD_EMAIL_DESC"
+			label="JGLOBAL_EMAIL"
+			required="true"
+			size="30"
+			validate="email"
+		/>
+
+		<field
+			name="created"
+			type="calendar"
+			class="readonly"
+			label="USERS_FIELD_REGISTERDATE_LABEL"
+			description="USERS_FIELD_REGISTERDATE_DESC"
+			readonly="true"
+			format="%Y-%m-%d %H:%M:%S"
+			size="22"
+			filter="user_utc"
+		/>
+
+		<field
+			name="last_login"
+			type="calendar"
+			class="readonly"
+			label="USERS_FIELD_LASTVISIT_LABEL"
+			description="USERS_FIELD_LASTVISIT_DESC"
+			readonly="true"
+			format="%Y-%m-%d %H:%M:%S"
+			size="22"
+			filter="user_utc"
+		/>
+
+		<field
+			name="modified"
+			type="calendar"
+			class="readonly"
+			label="USERS_FIELD_LASTRESET_LABEL"
+			description="USERS_FIELD_LASTRESET_DESC"
+			readonly="true"
+			format="%Y-%m-%d %H:%M:%S"
+			size="22"
+			filter="user_utc"
+		/>
+
+		
+                
+                
+		
+		<field
+				name="banned"
+				type="radio"
+				class="btn-group btn-group-yesno"
+				default="0"
+				label="USERS_FIELD_BLOCK_LABEL"
+				description="USERS_FIELD_BLOCK_DESC">
+				<option value="1">JYES</option>
+				<option value="0">JNO</option>
+		</field>
+
+		<field
+			name="id"
+			type="text"
+			class="readonly"
+			label="JGLOBAL_FIELD_ID_LABEL"
+			description ="JGLOBAL_FIELD_ID_DESC"
+			default="0"
+			readonly="true"
+			/>
+
+	</fieldset>
+	 <field name="user_level" type="list" label="User Group" description="User Group" default="1">
+            <option value="3">CHECKMYDTIVE_TITLE_ADMINISTRATOR</option>
+            <option value="2">Business</option>
+            <option value="1">Personal</option>
+        </field>
+        <field name="created_by" type="user" label="CHECKMYDTIVE_FORM_LBL_CREATED_BY" description="CHECKMYDTIVE_FORM_DESC_CREATED_BY" class="readonly" readonly="true"/>
+	<field
+			name="subscriber_start"
+			type="calendar"
+			label="Subscriber Start"
+			description="Subscriber Start"
+			format="%Y-%m-%d %H:%M:%S"
+			size="22"
+			filter="user_utc"
+		/>
+                
+                <field
+			name="subscriber_end"
+			type="calendar"
+			label="Subscriber End"
+			description="Subscriber End"
+			format="%Y-%m-%d %H:%M:%S"
+			size="22"
+			filter="user_utc"
+		/>
+                
+            <field name="subscription" type="list" label="Subscription Type" description="Subscription Type" default="0">
+                <option value="0">Free Trial</option>
+                <option value="1">Subscription</option>
+            </field>
+                
+                
+        
+</form>

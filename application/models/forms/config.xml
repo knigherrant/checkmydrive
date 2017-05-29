@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<form>
+	<fieldset name="general" label="CHECKMYDTIVE_CONFIG_GENERAL_LBL" description="CHECKMYDTIVE_CONFIG_GENERAL_DESC">
+        <field name="admin_email" type="adminemail" label="CHECKMYDTIVE_CONFIG_ADMIN_EMAIL_LBL" description="CHECKMYDTIVE_CONFIG_ADMIN_EMAIL_DESC" required="true" addfieldpath="application/models/fields"/>
+        <field name="logo" type="file" label="CHECKMYDTIVE_CONFIG_LOGO_LBL" description="CHECKMYDTIVE_CONFIG_LOGO_DESC"/>
+        <field name="company" type="text" label="CHECKMYDTIVE_CONFIG_COMPANY_LBL" description="CHECKMYDTIVE_CONFIG_COMPANY_DESC" default="Your Company"/>
+        <field name="contact" type="text" label="CHECKMYDTIVE_CONFIG_CONTACT_LBL" description="CHECKMYDTIVE_CONTACT_COMPANY_DESC" default="Your Name"/>
+        <field name="address" type="text" label="CHECKMYDTIVE_CONFIG_ADRESS_LBL" description="CHECKMYDTIVE_CONFIG_ADDRESS_DESC" default="Your Address"/>
+        <field name="city" type="text" label="CHECKMYDTIVE_CONFIG_CITY_LBL" description="CHECKMYDTIVE_CONFIG_CITY_DESC" default="Your City"/>
+        <field name="phone" type="text" label="CHECKMYDTIVE_CONFIG_PHONE_LBL" description="CHECKMYDTIVE_CONFIG_PHONE_DESC" default="Your Phone"/>
+        <field name="default_terms" type="textarea" label="CHECKMYDTIVE_CONFIG_DEFAULT_TERMS_LBL" rows="7" description="CHECKMYDTIVE_CONFIG_DEFAULT_TERMS_DESC" default="Thank you for your business. We do expect payment within {due_date}, so please process this invoice within that time."/>
+        <field name="date_format" type="text" label="CHECKMYDTIVE_CONFIG_DATE_FORMAT_LBL" description="CHECKMYDTIVE_CONFIG_DATE_FORMAT_DESC" default="d/m/Y"/>
+      
+	</fieldset>
+        
+        
+        <fieldset name="condif" label="Config Site" description="Config Site">
+            <field name="subscription" type="text" label="Subscription $/Month" description="Subscription" default="10"/>
+            <field name="sitename" type="text" label="Site Name" description="Site Name" default="Clientol"/>
+        <field name="mailfrom" type="text" label="From email" description="From email" default=""/>
+        <field name="fromname" type="text" label="From Name" description="From Name" default="Clientol"/>
+        <field name="allow_registration" type="radio" class="btn-group" default="1" label="Allow Registration" description="Allow Registration">
+            <option value="0">JNO</option>
+            <option value="1">JYES</option>
+        </field>
+        
+        <field name="activation" type="radio" class="btn-group" default="0" label="Activation Registration " description="Activation Registration">
+            <option value="0">JNO</option>
+            <option value="1">JYES</option>
+        </field>
+        
+        <field name="login_by_email" type="radio" class="btn-group" default="0" label="Login By Email" description="Login By Email">
+            <option value="0">JNO</option>
+            <option value="1">JYES</option>
+        </field>
+        
+        
+        <field name="forum" type="text" label="Link Forum" description="Link Forum" default=""/>       
+        
+        <field name="isMail" type="list"  default="mail" label="Send Mail" description="Send Mail">
+            <option value="mail">PHP Mail</option>
+            <option value="smtp">SMTP</option>
+        </field>
+         
+         <field name="smtp_secure" type="list"  default="tls" label="SMTP Security" description="SMTP Security">
+            <option value="tls">TLS</option>
+            <option value="ssl">SSL</option>
+        </field>
+         
+        <field name="smtp_host" type="text" label="SMTP Host" description="SMTP Host" default=""/>
+        <field name="smtp_user" type="text" label="SMTP User" description="SMTP User" default=""/>   
+        <field name="smtp_pass" type="text" label="SMTP Pass" description="SMTP Pass" default=""/>
+        <field name="smtp_port" type="text" label="SMTP Port" description="SMTP Port" default=""/>       
+         
+            
+        <field name="public_key" type="text" label="Captcha Public Key" description="Captcha Public key" default=""/>
+        <field name="private_key" type="text" label="Captcha Public Key" description="Captcha Private Key" default=""/>       
+        
+        </fieldset>
+    <fieldset name="paypal" label="Payment" description="Payment">
+        <field name="paypal_sandbox" type="radio" label="CHECKMYDTIVE_CONFIG_SANDBOX_LBL" description="CHECKMYDTIVE_CONFIG_SANDBOX_DESC" default="1" class="btn-group">
+            <option value="0">JNO</option>
+            <option value="1">JYES</option>
+        </field>
+        <field name="paypal_account" type="text" label="CHECKMYDTIVE_CONFIG_PAYPAL_ACCOUNT_LBL" description="CHECKMYDTIVE_CONFIG_PAYPAL_ACCOUNT_DESC" required="true" default=""/>
+        <field name="paypal_lang_code" type="sql" query="SELECT country, code FROM lang_codes" key_field="code" value_field="country" default="US" label="CHECKMYDTIVE_CONFIG_PAYPAL_LANG_CODE_LBL" description="CHECKMYDTIVE_CONFIG_PAYPAL_LANG_CODE_DESC"/>
+    </fieldset>
+
+</form>
+
