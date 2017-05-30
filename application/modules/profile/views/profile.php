@@ -31,6 +31,7 @@ $config  = Checkmydrive::getConfigs();
                                     <td><input value="<?php echo $user->name;?>" name="name"/></td>
                                 </tr>
                                 <tr>
+                                    
                                     <th><?php echo Checkmydrive::_('CHECKMYDTIVE_EMAIL');?></th>
                                     <td><input value="<?php echo $user->email;?>" name="email"/></td>
                                 </tr>
