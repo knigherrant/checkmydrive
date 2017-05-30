@@ -15,6 +15,4 @@ class Homepage extends Public_Controller
     }
 
     
-    
-   
 }

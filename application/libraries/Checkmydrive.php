@@ -561,28 +561,7 @@ class Checkmydrive extends CheckmydriveHelper{
         }
     }
     
-    public static function colorpicker(){
-        static $load;
-        if(!isset($load)){
-            $load = true;
-            ?>
-            <link rel="stylesheet" href="<?php echo self::urlTheme(); ?>assets/css/jquery.minicolors.css" type="text/css" />
-            <script src="<?php echo self::urlTheme(); ?>assets/js/jquery.minicolors.min.js" type="text/javascript"></script>
-            <script>
-            
-                    jQuery(document).ready(function (){
-                        jQuery('.minicolors').each(function() {
-                                jQuery(this).minicolors({
-                                        control: jQuery(this).attr('data-control') || 'hue',
-                                        position: jQuery(this).attr('data-position') || 'right',
-                                        theme: 'bootstrap'
-                                });
-                        });
-                });
-            </script>
-            <?php
-        }
-    }
+   
     
     public static function addScript($script){
         ?>
@@ -1025,10 +1004,10 @@ class CheckmydriveHelper
 
         echo link_tag(Checkmydrive::urlTheme(true).'assets/css/general.css');
        // echo link_tag(Checkmydrive::urlTheme(true).'assets/bootstrap/css/bootstrap-responsive.css');
+        
         if(Checkmydrive::isPageAdmin()){
-            
-            echo link_tag(Checkmydrive::urlTheme(true).'assets/css/AdminLTE.css');
             echo link_tag(Checkmydrive::urlTheme(true).'assets/css/clientrol.css');
+            echo link_tag(Checkmydrive::urlTheme(true).'assets/css/AdminLTE.css');
             echo $script->external(Checkmydrive::urlTheme(true).'assets/bootstrap/js/bootstrap.min.js');
             echo link_tag(Checkmydrive::urlTheme().'assets/themeforest-admin/css/style.css');
             echo link_tag(Checkmydrive::urlTheme().'assets/css/fix-themeforest.css');
@@ -1115,13 +1094,13 @@ class CheckmydriveHelper
                     array('name'=>'google/app', 'label'=>Checkmydrive::_('APPS WITH ACCESS')),
                     array('name'=>'google/user', 'label'=>Checkmydrive::_('USERS WITH ACCESS')),
                     array('name'=>'google/folder', 'label'=>Checkmydrive::_('PUBLIC FILES / FOLDERS')),
-                    array('name'=>'google/empty', 'label'=>Checkmydrive::_('EMPTY FILES')),
+                    array('name'=>'google/files', 'label'=>Checkmydrive::_('EMPTY FILES')),
                 ),
                 'dropbox' => array(
                     array('name'=>'dropbox/app', 'label'=>Checkmydrive::_('APPS WITH ACCESS')),
                     array('name'=>'dropbox/user', 'label'=>Checkmydrive::_('USERS WITH ACCESS')),
                     array('name'=>'dropbox/folder', 'label'=>Checkmydrive::_('PUBLIC FILES / FOLDERS')),
-                    array('name'=>'dropbox/empty', 'label'=>Checkmydrive::_('EMPTY FILES')),
+                    array('name'=>'dropbox/files', 'label'=>Checkmydrive::_('EMPTY FILES')),
                 )
             );
             $uri = Checkmydrive::uri();
@@ -1150,7 +1129,7 @@ class CheckmydriveHelper
                         </a>
                     </li>
             </ul>
-            <?php if(!Checkmydrive::isSubscriber()){ ?>
+            <?php if(!Checkmydrive::isSubscriber() && !Checkmydrive::isSuperUser()){ ?>
                 <div class="alert alert-subscriber">
                     <i class="fa fa-info"></i>
                     Your Subscription has Expired, Please Renew to Continue.
@@ -1161,6 +1140,16 @@ class CheckmydriveHelper
         
     }
 
+    public static function formatNumber($number, $digit=4){
+        return str_pad($number, $digit, '0', STR_PAD_LEFT);
+    }
+
+    public static function formatMoney($amount){
+        return number_format((float)$amount, 2, '.', '');
+    }
+
+    
+    
     public static function buildPaypalForm($return, $cancel_return, $item_name, $item_number, $amount, $currency_code, $icon, $submit_text, $userid = 0, $master = false){
 		$configs = self::getConfigs($master);
         if(!$configs->paypal_account) return Checkmydrive::_('CHECKMYDTIVE_MSG_PAYPAL_ACCOUNT_NOT_CONFIG');

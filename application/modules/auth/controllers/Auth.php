@@ -196,17 +196,14 @@ class Auth extends CI_Controller
         
         function renew($data = array()){
             $user = Checkmydrive::getUser();
-            if($user->user_level == 2){
+            if($user->user_level == 3){
+               Checkmydrive::setMessage('Your account is SuperUser can not renew');
+               redirect(Checkmydrive::route ());
+            }else{
                 $data = array('user_id' => $user->id);
                 $this->session->set_userdata('renew', true);
                 $this->paypal($data);
-            }else if($user->user_level == 3){
-				Checkmydrive::setMessage('Your account is SuperUser can not renew');
-				redirect(Checkmydrive::route ( 'summary'));
-			}else{
-				Checkmydrive::setMessage('Your can not renew');
-				redirect(Checkmydrive::route ());
-			}
+            }
         }
         
         function paypal($data = array()){
