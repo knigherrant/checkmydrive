@@ -59,60 +59,64 @@ $type = (Checkmydrive::isBusiness())? 'Business' : 'Personal';
 
 <h3 class="page-title"><?php echo Checkmydrive::_('Sign Up For Checkmydrive ' . $type); ?></h3>
 
-<ul class="nav nav-tabs">
-    <li class="<?php if(!Checkmydrive::isBusiness()) echo 'active'; ?>"><a href="<?php echo Checkmydrive::route('register'); ?>">Personal</a></li>
-    <li class="<?php if(Checkmydrive::isBusiness()) echo 'active'; ?>"><a href="<?php echo Checkmydrive::route('business'); ?>">Business</a></li>
-</ul>
+
 
 <div class="auth-form">
 <?php echo form_open($this->uri->uri_string()); ?>
 
     <div class="col-left">
-        <div class="login-row">
-            <div class="login-label"><?php echo form_label('First Name', $fname['id']); ?>* </div>
-                <div class="login-control"><span class="appmsg"><?php echo form_input($fname); ?></div>
-		<div class="error"><?php echo form_error($fname['name']); ?><?php echo isset($errors[$fname['name']])?$errors[$fname['name']]:''; ?></div>
-	</div>
-        <div class="login-row">
-            <div class="login-label"><?php echo form_label('Last Name', $lname['id']); ?>* </div>
-                <div class="login-control"><span class="appmsg"><?php echo form_input($lname); ?></div>
-		<div class="error"><?php echo form_error($lname['name']); ?><?php echo isset($errors[$lname['name']])?$errors[$lname['name']]:''; ?></div>
-	</div>
-        
-        <div class="login-row">
-		<div class="login-label"><?php echo form_label('Email Address', $email['id']); ?>*</div>
-		<div class="login-control"><?php echo form_input($email); ?></div>
-		<div class="error"><?php echo form_error($email['name']); ?><?php echo isset($errors[$email['name']])?$errors[$email['name']]:''; ?></div>
-	</div>
-	<?php if(Checkmydrive::isBusiness()){ ?>
-            <div class="login-row">
-                <div class="login-label"><?php echo form_label('Company', $company['id']); ?> </div>
-                    <div class="login-control"><span class="appmsg"><?php echo form_input($company); ?></div>
-                    <div class="error"><?php echo form_error($company['name']); ?><?php echo isset($errors[$company['name']])?$errors[$company['name']]:''; ?></div>
-            </div>
-            <div class="login-row">
-                <div class="login-label"><?php echo form_label('Address', $address['id']); ?> </div>
-                    <div class="login-control"><span class="appmsg"><?php echo form_input($address); ?></div>
-                    <div class="error"><?php echo form_error($address['name']); ?><?php echo isset($errors[$address['name']])?$errors[$address['name']]:''; ?></div>
-            </div>
-        <?php } ?>
-        <div class="login-row">
-		<div class="login-label"><?php echo form_label('Subscription', $subscriber['id']); ?>*</div>
-                <div class="login-control"><?php echo Checkmydrive::createSelect($subscriber['value']); ?></div>
-		<div class="error"><?php echo form_error($subscriber['name']); ?></div>
-	</div>
-        <!--
-        <div class="login-row">
-            <?php if(isset($captcha)){ ?>
-            <div class="error"><?php echo $captcha; ?></div>
-            <?php } ?>
-            <?php echo Captcha::showCaptcha(); ?>
-        </div>
-        -->
-        <div class="text-center row-submit"><?php echo form_submit('register', 'Register'); ?></div>
-        
-    </div>
-    
+    	<ul class="nav nav-tabs">
+		    <li class="<?php if(!Checkmydrive::isBusiness()) echo 'active'; ?>"><a href="<?php echo Checkmydrive::route('register'); ?>">Personal</a></li>
+		    <li class="<?php if(Checkmydrive::isBusiness()) echo 'active'; ?>"><a href="<?php echo Checkmydrive::route('business'); ?>">Business</a></li>
+		</ul>
+		<div class="content-form">
+			<div class="content-detail">
+	        <div class="login-row">
+		        <div class="login-label"><?php echo form_label('First Name', $fname['id']); ?>* </div>
+		        <div class="login-control"><span class="appmsg"><?php echo form_input($fname); ?></div>
+				<div class="error"><?php echo form_error($fname['name']); ?><?php echo isset($errors[$fname['name']])?$errors[$fname['name']]:''; ?></div>
+			</div>
+	        <div class="login-row">
+		        <div class="login-label"><?php echo form_label('Last Name', $lname['id']); ?>* </div>
+		        <div class="login-control"><span class="appmsg"><?php echo form_input($lname); ?></div>
+				<div class="error"><?php echo form_error($lname['name']); ?><?php echo isset($errors[$lname['name']])?$errors[$lname['name']]:''; ?></div>
+			</div>
+	        
+	        <div class="login-row email">
+				<div class="login-label"><?php echo form_label('Email Address', $email['id']); ?>*</div>
+				<div class="login-control"><?php echo form_input($email); ?></div>
+				<div class="error"><?php echo form_error($email['name']); ?><?php echo isset($errors[$email['name']])?$errors[$email['name']]:''; ?></div>
+			</div>
+		<?php if(Checkmydrive::isBusiness()){ ?>
+	            <div class="login-row">
+	                <div class="login-label"><?php echo form_label('Company', $company['id']); ?> </div>
+	                <div class="login-control"><span class="appmsg"><?php echo form_input($company); ?></div>
+	                <div class="error"><?php echo form_error($company['name']); ?><?php echo isset($errors[$company['name']])?$errors[$company['name']]:''; ?></div>
+	            </div>
+	            <div class="login-row">
+	                <div class="login-label"><?php echo form_label('Address', $address['id']); ?> </div>
+	                <div class="login-control"><span class="appmsg"><?php echo form_input($address); ?></div>
+	                <div class="error"><?php echo form_error($address['name']); ?><?php echo isset($errors[$address['name']])?$errors[$address['name']]:''; ?></div>
+	            </div>
+	        <?php } ?>
+	        <div class="login-row sub">
+				<div class="login-label"><?php echo form_label('Subscription', $subscriber['id']); ?>*</div>
+		        <div class="login-control"><?php echo Checkmydrive::createSelect($subscriber['value']); ?></div>
+				<div class="error"><?php echo form_error($subscriber['name']); ?></div>
+			</div>
+	        <!--
+	        <div class="login-row">
+	            <?php if(isset($captcha)){ ?>
+	            <div class="error"><?php echo $captcha; ?></div>
+	            <?php } ?>
+	            <?php echo Captcha::showCaptcha(); ?>
+	        </div>
+	        -->
+	        <div class="text-center row-submit"><?php echo form_submit('register', 'Register'); ?></div>
+	        
+	    </div>
+	    </div>
+ 	</div>   
     <div class="col-right">
         <img src="<?php echo Checkmydrive::root(); ?>images/register.png" />
     </div>

@@ -59,14 +59,41 @@
     text-align: center;
 }
 .login-page .container .auth-form{
-    padding: 15px 0;
+    padding: 40px 15px 15px;
 }
-
+.auth-form form {
+    margin-left:-15px;
+    margin-right:-15px;
+}
+.auth-form form .col-left .content-form {
+    background: rgb(242, 242, 242) none repeat scroll 0 0;
+    padding:20px 20px 20px;
+    display: inline-block;
+}
+.auth-form form .col-left .content-form .content-detail .login-row{
+    float: left;
+    padding: 0 15px;
+    width: 50%;
+}
+.auth-form form .col-left .content-form .content-detail .login-row.email,
+.auth-form form .col-left .content-form .content-detail .login-row.sub{width:100%;}
 .login-page .container .col-left,.login-page .container .col-right{
     width: 50%;
     display: table-cell;
-    padding: 0 25px;
+    vertical-align: top;
+    padding:0 15px;
 }
+.auth-form form .col-left ul.nav.nav-tabs{float: right; margin-bottom: 0; background: rgb(242, 242, 242) none repeat scroll 0 0; border: 0 none;}
+.auth-form form .col-left ul.nav.nav-tabs li a{color: #000; padding:8px 20px; text-transform: uppercase; font-weight: bold;}
+.auth-form form .col-left ul.nav.nav-tabs li.active, 
+.auth-form form .col-left ul.nav.nav-tabs li.active a{background: rgb(242, 242, 242) none repeat scroll 0 0; border: 0 none;}
+.auth-form form .col-left ul.nav.nav-tabs li, 
+.auth-form form .col-left ul.nav.nav-tabs li a{background: rgb(228, 228, 228) none repeat scroll 0 0; border:0 none;}
+.auth-form form .col-left ul.nav.nav-tabs li a:hover, .auth-form form .col-left ul.nav.nav-tabs li.active a:hover,
+ .auth-form form .col-left ul.nav.nav-tabs li a:focus, .auth-form form .col-left ul.nav.nav-tabs li.active a:focus{
+    border: 0 none;
+ }
+.auth-form form .col-left ul.nav.nav-tabs li.active a{border: 0 none;}
 #menu-main-menu.menu li:last-child a
 .login-page .header{
 	text-align: center;
@@ -96,8 +123,30 @@
 
 }
 .login-row .login-label label{
-	display: inline-block;
+	color: rgb(0, 0, 0);
+    display: inline-block;
+    font-weight: bold;
 }
+.auth-form form .col-left .content-form .content-detail .row-submit{
+    display: inline-block;
+    float: right;
+    padding-right:15px;
+}
+.auth-form form .col-left .content-form .content-detail .row-submit input{
+    height: auto;
+    text-align: center;
+    text-indent: 0;
+    width: auto;
+    padding: 10px 40px !important;
+    background: rgb(22, 155, 213) none repeat scroll 0 0 !important;
+    border-color: rgb(22, 155, 213) !important;
+}
+.content-detail::after, .content-detail::before{
+    clear: both;
+    content: "";
+    display: table;
+}
+.auth-form form .col-left .content-form .content-detail{margin:0 -15px;}
 .login-control{
 	display: inline-block; 
 }
@@ -146,6 +195,12 @@ ul.list-link li:hover ,ul.list-link li a:hover{
     border-radius: 4px;
 }
 /*---------------------------------------------------------------------------*/
+*::after, *::before {
+    box-sizing: border-box;
+}
+* {
+    box-sizing: border-box;
+}
 .auth-form input, .login-control input{
 	width:100%!important;
 	padding:8px 0px!important;
@@ -153,9 +208,17 @@ ul.list-link li:hover ,ul.list-link li a:hover{
 	background:#f1f5f9!important;
 	    text-indent: 15px;
 }
+.login-control > input{height:auto !important;}
+.auth-form form .col-left .content-form .content-detail .login-row input,
+.auth-form form .col-left .content-form .content-detail .login-row select{
+    height:auto;
+    border: 1px solid rgb(121, 121, 121);
+    border-radius: 0;
+}
 .login-row .login-label{
 	width:100%;
 	text-align:left;
+    margin-right:0;
 }
 .login-control{
 	width:100%;
@@ -275,7 +338,9 @@ body.wrapper.login-page.message-bg {
     }*/
 
 }
-
+@media(max-width:767px){
+    .register-bg .container .col-left, .register-bg .container .col-right{margin-top:20px; text-align:center;}
+}
 
 @media (max-width: 500px){
     .register-bg .auth-form .col-right .login-row:first-child .login-label span{
@@ -287,6 +352,9 @@ body.wrapper.login-page.message-bg {
     .login-page .container{
         width: 100%;
     }
+ }
+ @media(max-width:480px){
+    .auth-form form .col-left .content-form .content-detail .login-row{width:100%;}
  }
  @media (max-width: 418px){
     .register-bg .auth-form .col-right .login-row:first-child input{

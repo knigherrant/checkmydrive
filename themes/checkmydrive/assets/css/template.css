@@ -7609,6 +7609,81 @@ code {
 .position_absolute a:hover{
 	text-decoration: none;
 }
-
-
-
+*::after, *::before {
+    box-sizing: border-box;
+}
+* {
+    box-sizing: border-box;
+}
+#jk-contents .contents.row-fluid{display: flex;}
+.contents.row-fluid > div#sidebar-left{
+    float: left;
+    width: 30%;
+}
+ .contents.row-fluid > div#content-wrapper{
+ 	float: left;
+    width: 70%;
+ }
+.contents.row-fluid > div#sidebar-left{
+	background:#F2F2F2;
+	padding: 30px 15px 30px 30px;
+}
+.contents.row-fluid > div#content-wrapper{
+	background:#E4E4E4;
+}
+.contents.row-fluid > div#sidebar-left ul.menuLeft{
+	list-style: outside none none;
+    margin: 0;
+    padding: 0;
+}
+.contents.row-fluid > div#sidebar-left ul.menuLeft ul.children{
+	list-style: outside none none;
+    margin: 0;
+    text-align: right;
+    padding: 5px 0 50px;
+}
+.contents.row-fluid > div#sidebar-left ul.menuLeft ul.children li{
+	padding:8px 0;
+}
+.contents.row-fluid > div#sidebar-left ul.menuLeft > li > a{
+	border: 1px solid #797979;
+    display: block;
+    padding: 10px;
+    color: #000;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+     border-radius: 6px;
+    text-align: center;
+}
+.contents.row-fluid > div#sidebar-left ul.menuLeft li a,
+.contents.row-fluid > div#sidebar-left ul.menuLeft li a:hover,
+.contents.row-fluid > div#sidebar-left ul.menuLeft li a:focus{
+	text-decoration: none;
+}
+.contents.row-fluid > div#sidebar-left ul.menuLeft > li > a:hover,
+.contents.row-fluid > div#sidebar-left ul.menuLeft > li > a:focus{
+	background: #169BD5;
+	color: #fff;
+	border-color: rgb(22, 155, 213);
+}
+.contents.row-fluid > div#sidebar-left ul.menuLeft > li.active > a{
+	background: #169BD5;
+	color: #fff;
+	border-color: rgb(22, 155, 213);
+}
+.contents.row-fluid > div#sidebar-left ul.menuLeft > li:first-child > a{margin-bottom: 30px;}
+.contents.row-fluid > div#sidebar-left ul.menuLeft > li:nth-child(2) > a,
+.contents.row-fluid > div#sidebar-left ul.menuLeft > li:nth-child(3) > a{margin-bottom: 0px;}
+@media(max-width: 991px){
+	body.wrapper .container{width:auto;}
+}
+@media(max-width: 767px){
+	#jk-contents .contents.row-fluid{display: block;}
+	.contents.row-fluid > div#sidebar-left, .contents.row-fluid > div#content-wrapper{float: none; width:100%;}
+}
+@media(max-width: 480px){
+	.welcomadmin .f5dashboard{padding:40px 0;}
+	.welcomadmin .link-dashboard a{padding:10px !important;}
+	.ct_subcont .table tbody tr td{display: block; width:100%;}
+	.ct_subcont .table tbody tr td .renew a{float: left;}
+}
