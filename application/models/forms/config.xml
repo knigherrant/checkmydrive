@@ -65,6 +65,15 @@
         <field name="paypal_account" type="text" label="CHECKMYDTIVE_CONFIG_PAYPAL_ACCOUNT_LBL" description="CHECKMYDTIVE_CONFIG_PAYPAL_ACCOUNT_DESC" required="true" default=""/>
         <field name="paypal_lang_code" type="sql" query="SELECT country, code FROM lang_codes" key_field="code" value_field="country" default="US" label="CHECKMYDTIVE_CONFIG_PAYPAL_LANG_CODE_LBL" description="CHECKMYDTIVE_CONFIG_PAYPAL_LANG_CODE_DESC"/>
     </fieldset>
+    
+    <fieldset name="authorize" label="Authorize" description="Authorize">
+        <field name="google_key" type="text" label="Google Key" description="Google Key" default=""/>
+        <field name="google_secret" type="text" label="Google Secret" description="Google Secret" default=""/>
+        
+        <field name="dropbox_key" type="text" label="Dropbox Key" description="Dropbox Key" default=""/>
+        <field name="dropbox_secret" type="text" label="Dropbox Secret" description="Dropbox Secret" default=""/>
+    </fieldset>
+    
 
 </form>
 
