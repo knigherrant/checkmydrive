@@ -139,8 +139,8 @@ class JFormFieldGoogle extends JFormField
                         </script> 
                         <a class="loginGoogle" href="javascript:void(0)" data="<?php echo $AuthUrl; ?>" >Add GoogleDrive</a>
                     <?php }else { ?>
-						<a class="loginGoogle" href="javascript:void(0)" >Added GoogleDrive</a>
-					<?php } ?>
+                            <a class="loginGoogle" href="javascript:void(0)" >Added GoogleDrive</a>
+                    <?php } ?>
                     <div class="profile <?php echo $info->class; ?>">
                         <fieldset>
                             <legend><?php echo Checkmydrive::_('Google Info'); ?></legend>
@@ -149,6 +149,10 @@ class JFormFieldGoogle extends JFormField
                         </fieldset>
                     </div>
                 </div>
+                <?php if(isset($info->name)){ 
+                    //Google::testList();
+                    //die;
+                }?>
                 <?php
             return ob_get_clean();
         }
