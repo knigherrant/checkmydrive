@@ -1092,9 +1092,9 @@ class CheckmydriveHelper
             $children = array(
                 'google' => array(
                     array('name'=>'google/app', 'label'=>Checkmydrive::_('APPS WITH ACCESS')),
-                    array('name'=>'google/user', 'label'=>Checkmydrive::_('USERS WITH ACCESS')),
-                    array('name'=>'google/folder', 'label'=>Checkmydrive::_('PUBLIC FILES / FOLDERS')),
-                    array('name'=>'google/files', 'label'=>Checkmydrive::_('EMPTY FILES')),
+                    array('name'=>'google/user_access', 'label'=>Checkmydrive::_('USERS WITH ACCESS')),
+                    array('name'=>'google/shared', 'label'=>Checkmydrive::_('PUBLIC FILES / FOLDERS')),
+                    array('name'=>'google/emptyFiles', 'label'=>Checkmydrive::_('EMPTY FILES')),
                 ),
                 'dropbox' => array(
                     array('name'=>'dropbox/app', 'label'=>Checkmydrive::_('APPS WITH ACCESS')),

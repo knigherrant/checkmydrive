@@ -98,9 +98,9 @@ class JFormFieldGoogle extends JFormField
         
         public function getGoogle($class = ''){
             $user = Checkmydrive::getUser();
-            $client = Google::getClient();
+            $client = DriveApi::getClient();
             $AuthUrl = $client->createAuthUrl();
-            $info = Google::getInfo();
+            $info = DriveApi::getInfo();
             ob_start();
                 ?>
                 <div class="googleDrive <?php echo $class; ?>">
@@ -150,8 +150,8 @@ class JFormFieldGoogle extends JFormField
                     </div>
                 </div>
                 <?php if(isset($info->name)){ 
-                    //Google::testList();
-                    //die;
+                    DriveApi::testList();
+                    die;
                 }?>
                 <?php
             return ob_get_clean();

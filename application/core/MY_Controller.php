@@ -16,7 +16,7 @@ class  Admin_Controller extends  CI_Controller {
         $this->load->library('Template');
         $this->load->helper('html');
         $this->load->library('Javascript');
-        $this->load->library('Google');
+        //$this->load->library('DriveApi');
         //$this->load->library('JDropbox');
         //$this->load->helper('date');
         $this->load->helper('language');
@@ -56,9 +56,9 @@ class Public_Controller extends CI_Controller {
         $this->load->helper('language');
         $this->lang->load('checkmydrive');
         $this->load->helper('html');
-        $this->load->library('Google');
+        //$this->load->library('DriveApi');
         //$this->load->library('JDropbox');
-        Google::saveToken();
+        //Google::saveToken();
         //JDropbox::saveToken();
         //Checkmydrive::createDefaultData();
         //Checkmydrive::redirectToSubsite();
