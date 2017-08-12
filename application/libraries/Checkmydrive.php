@@ -1078,10 +1078,72 @@ class CheckmydriveHelper
         return $new_str;
     }
 
+    
+    private static function htmlFromArray($tag,$attrs){
+        $text = $attrs['text']; unset($attrs['text']);
+        $html = "<{$tag}";
+        foreach($attrs as $key => $attr){
+            $html .= ' '.$key.'="'.$attr.'"';
+        }
+        return  $html.">{$text}</{$tag}>";
+    }
+    private static function isMenuActive($href, $active = []){
+        $href = explode('/', $href);
+        foreach ($href as $i => $sub){
+            if($sub !== $active[$i]) return false;
+        }
+        return true;
+    }
+    
+    public static function buildMenus($arr, $active = [], $pClass = 'menuLeft'){
+        $html = '<ul class="menus '.$pClass.'">';
+        
+        foreach($arr as $item){
+            $item['href'] = isset($item['href'])?$item['href']:'#';
+            $class = self::isMenuActive($item['href'],$active)?' active':'';
+            $item['href'] = Checkmydrive::route($item['href']);
+            $childs = '';
+            if(isset($item['childs'])){
+                $class .= ' haschild';
+                $childs = self::buildMenus($item['childs'],$active,@$item['pClass']?$item['pClass']:'');
+            }
+            unset($item['childs']);
+            unset($item['pClass']);            
+            $aTag = self::htmlFromArray('a', $item);
+            $html.= '<li class="'.$class.' menu-item">';                    
+            $html.= $aTag.$childs;
+            $html.= '</li>';
+        }
+        return $html.'</ul>';
+    }
 
     //Front-end
     public static function buildSidebar(){
-       
+        $sidebars = array(
+            array('href'=>'homepage', 'text'=>Checkmydrive::_('DASHBOARD')),
+            array('href'=>'google', 'text'=>Checkmydrive::_('GOOGLE DRIVE'), 'ui-sref' => 'dashboard', 'pClass' => 'children', 'id' => 'menu-google',
+                'childs' => array(
+                    //array('href'=>'google/app', 'ui-sref' => 'app', 'text'=>Checkmydrive::_('APPS WITH ACCESS')),
+                    array('href'=>'google/user_access', 'ui-sref' => 'user-access', 'text'=>Checkmydrive::_('USERS WITH ACCESS')),
+                    array('href'=>'google/shared', 'ui-sref' => 'shared', 'text'=>Checkmydrive::_('PUBLIC FILES / FOLDERS')),
+                    array('href'=>'google/emptyFiles', 'ui-sref' => 'empty', 'text'=>Checkmydrive::_('EMPTY FILES')),
+                )
+            ),
+            array('href'=>'dropbox', 'text'=>Checkmydrive::_('DROPBOX'), 'pClass' => 'children',
+                'childs' => array(
+                    array('href'=>'dropbox/app', 'text'=>Checkmydrive::_('APPS WITH ACCESS')),
+                    array('href'=>'dropbox/user', 'text'=>Checkmydrive::_('USERS WITH ACCESS')),
+                    array('href'=>'dropbox/folder', 'text'=>Checkmydrive::_('PUBLIC FILES / FOLDERS')),
+                    array('href'=>'dropbox/files', 'text'=>Checkmydrive::_('EMPTY FILES')),
+                )
+            ),
+            array('href'=>'profile', 'text'=>Checkmydrive::_('MY ACCOUNT')),
+        );
+        $uri = Checkmydrive::uri();
+        return self::buildMenus($sidebars, [$uri->view,$uri->layout]);
+        ob_start();
+        return ob_get_clean();
+       /*
 
             $sidebars = array(
                 array('name'=>'homepage', 'label'=>Checkmydrive::_('DASHBOARD')),
@@ -1094,7 +1156,7 @@ class CheckmydriveHelper
                     array('name'=>'google/app', 'label'=>Checkmydrive::_('APPS WITH ACCESS')),
                     array('name'=>'google/user_access', 'label'=>Checkmydrive::_('USERS WITH ACCESS')),
                     array('name'=>'google/shared', 'label'=>Checkmydrive::_('PUBLIC FILES / FOLDERS')),
-                    array('name'=>'google/emptyFiles', 'label'=>Checkmydrive::_('EMPTY FILES')),
+                    array('name'=>'google/empty', 'label'=>Checkmydrive::_('EMPTY FILES'), 'ui-sref=empty '),
                 ),
                 'dropbox' => array(
                     array('name'=>'dropbox/app', 'label'=>Checkmydrive::_('APPS WITH ACCESS')),
@@ -1116,7 +1178,7 @@ class CheckmydriveHelper
                             <ul class="children">
                             <?php foreach ($children[$item['name']] as $child){ ?>
                                 <li>
-                                    <a href="<?php echo Checkmydrive::route($child['name']);?>" > <?php echo $child['label'];?></a>
+                                    <a ui-sref="<?php echo Checkmydrive::route($child['name']);?>" ui-sref-active="active"> <?php echo $child['label'];?></a>
                                 </li>
                             <?php } ?>
                             </ul>
@@ -1137,7 +1199,7 @@ class CheckmydriveHelper
             <?php } ?>
             <?php
             return ob_get_clean();
-        
+        */
     }
 
     public static function formatNumber($number, $digit=4){
