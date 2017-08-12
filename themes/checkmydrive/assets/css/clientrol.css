@@ -310,3 +310,28 @@ ul.ct_stack li a.ct_stack_delete_item{
 .row-fluid{
    position: relative; 
 }
+
+.box-balance{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    text-align: center;
+    width: 420px;
+    background: #fff;
+}
+.btn-google-auth{
+    font-weight: bold;
+    line-height: 40px;
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+.btn-google-auth:before{
+    content: '';
+    background-image: url(../images/Google-Drive-icon.png);
+    background-size: contain;
+    width: 30px;
+    height: 30px;
+    display: inline-block;
+    margin-bottom: -8px;
+}
