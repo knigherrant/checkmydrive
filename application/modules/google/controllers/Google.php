@@ -8,39 +8,39 @@ class Google extends Public_Controller
         parent::__construct(); 
         $this->load->library('DriveApi');        
         $this->model = Checkmydrive::getModel('Drive');
-        
-        if($this->router->method != 'auth'){        
-            $params = Checkmydrive::getUser()->params;
-            if(isset($params->google)){
-                $token = json_encode($params->google);
-            }else{
-                redirect('/google/auth');
-            }
-            $client = $this->client = DriveApi::getClient($token);
-            if($client->isAccessTokenExpired()){
-                redirect('/google/auth');
-            }        
+        $params = Checkmydrive::getUser()->params;
+        $token = $params->google;
+        $client = $this->client = DriveApi::getClient($token);
+        if(!$this->client->isAccessTokenExpired()){
             if(isset($client->refresh_token)){
                 $token = $client->getAccessToken();
-                $token->refresh_token = $client->refresh_token; 
+                $token['refresh_token'] = $client->refresh_token;
                 $this->model->saveToken($token);
-                Checkmydrive::getDbo(true)->where('id', $user->id)->set('params',  json_encode($params))->update('users');
             }
+            
+            if($this->router->method == 'auth'){
+                return redirect('/google');
+            }
+        }else if($this->router->method != 'auth'){
+            redirect('/google/auth');
         }
+        
     }
     
     public function auth()
-    {
-        $client = $this->client = DriveApi::getClient();
-        $client->setRedirectUri(Checkmydrive::root().'google/auth');
+    {   
+        $this->client->setRedirectUri(Checkmydrive::root().'google/auth');
         if($code = $this->input->get('code')){
-            $token = $client->fetchAccessTokenWithAuthCode($code);
-            if(isset($token['error'])){
-                //$this->template->build(__FUNCTION__,'google');
+            try{                
+                $token = $client->fetchAccessTokenWithAuthCode($code);
+            } catch (Exception $e){
+                redirect($this->client->createAuthUrl());
+            }
+            
+            if($this->model->saveToken($token) == -2){
                 redirect($this->client->createAuthUrl());
             }else{
-                $this->model->saveToken($token);
-                return redirect('/google');                
+                return redirect('/google');
             }
         }else{
             redirect($this->client->createAuthUrl());

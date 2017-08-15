@@ -46,7 +46,7 @@ var driveLanguage = {
 
     <div class="contents row-fluid">
         <div id="sidebar-left"><?php echo CheckmydriveHelper::buildSidebar();?></div>
-        <div id="content-wrapper" ng-app="GoogleDrive">
+        <div id="content-wrapper" ng-app="GoogleDrive" class="{{loading()?'loading':''}}">
             <button class="btnReset" ng-click="reset()" ng-disabled="loading()">Reset</button>
             <ui-view></ui-view>
             <template view-dashboard>                
@@ -219,6 +219,10 @@ var driveLanguage = {
                     </div>
                 </div>
             </template>
+            <div class="loader">
+                <div class="spiner sk-rotating-plane">
+                </div>
+            </div>
         </div>
     </div>
 </div>
@@ -354,7 +358,7 @@ var driveLanguage = {
                 loadFiles: function(token){
                     if(isLoading && !token) return;
                     isLoading = true;
-                    return gapi.client.drive.files.list ({
+                    gapi.client.drive.files.list ({
                         pageToken: token,
                         fields: 'nextPageToken,incompleteSearch,files',
                         spaces: 'drive',
@@ -369,6 +373,7 @@ var driveLanguage = {
                         }
                         m.cacheFiles();
                     });
+                    return true;
                 },
                 loadChanges: function(){
                     if(changesId){

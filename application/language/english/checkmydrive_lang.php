@@ -28,6 +28,7 @@ $lang['CHECKMYDTIVE_WELCOME_MSG']="You are currently using Clientrol Professiona
 $lang['CHECKMYDTIVE_SUBSCRIPTION_EXPIRE']="Your subscription will expire:";
 $lang['CHECKMYDTIVE_ANNUAL_SUBSCRIPTION']="Annual Subscription";
 $lang['CHECKMYDTIVE_MONTHLY_SUBSCRIPTION']="Monthly Subscription";
+$lang['CHECKMYDRIVE_GOOGLE_LOGGED']="Google Logged";
 
 $lang['CHECKMYDTIVE_SAVE10']="SAVE 10%";
 $lang['CHECKMYDTIVE_CLOSE_ACCOUNT']="Close my Account";

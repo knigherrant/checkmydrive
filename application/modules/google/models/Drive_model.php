@@ -11,58 +11,17 @@ class Drive_model extends CI_Model {
         }else{
             $rs = 2;
         }
+        $lastInfor = DriveApi::getInfo($params->google);
+        if($lastInfor){
+            $infor = DriveApi::getInfo($token);
+            if($lastInfor->email != $infor->email){
+                return -2;
+            }            
+        }
+        
         $params->google = $token;
         if(!Checkmydrive::getDbo(true)->where('id', $user->id)->set('params',  json_encode($params))->update('users')) $rs = -1;
         return $rs;
-        if (isset($_GET['code']) && $user->id && empty($_GET['state'])) {
-            $client = self::getClient();
-            $token = $client->fetchAccessTokenWithAuthCode($_GET['code']);
-            if($token){
-                $client->setAccessToken($token);
-                $db = Checkmydrive::getDbo(true);
-                $folderID = $refreshToken = $newAuth = '';
-                //get Google profile
-                $profile = new Google_Service_Oauth2($client);
-                $about =   $profile->userinfo->get();
-                
-                $params = ($user->params)? $user->params : new stdClass();
-                if(isset($user->params->google)) $folderID = @$user->params->google->folder;
-                if(isset($user->params->google->refresh_token)) $refreshToken = $user->params->google->refresh_token;
-                if($folderID){
-                    if($about->email == $params->google->info->email){ // re-auth same account
-                        if(empty($token['refresh_token'])) $token['refresh_token'] = $refreshToken;
-                        $params->google->token = $token;
-                    }else{ // re-auth other account
-                        $folderID = ''; $newAuth = true;
-                    }
-                }else $newAuth = true;
-                if(!$folderID){
-                    $drive_service = new Google_Service_Drive($client);
-                    $fileMetadata = new Google_Service_Drive_DriveFile(array(
-                            'name' => 'clientrol',
-                            'mimeType' => 'application/vnd.google-apps.folder')
-                        );
-                    $folder = $drive_service->files->create($fileMetadata, array('fields' => 'id'));
-                    $folderID = $folder->id;
-                }
-                if($newAuth){
-                    $params->google = array(
-                        'token' => $token,
-                        'refresh_token' => $token['refresh_token'],
-                        'folder' => $folderID,
-                        'info' => array(
-                            'name' => $about->name,
-                            'email' => $about->email,
-                            'avatar' => $about->picture,
-                        )
-                    );
-                }
-                $params->use = 'google';
-                $db->where('id', $user->id)->set('params',  json_encode($params))->update('users');
-                //echo "<div style='text-align: center'><h2>Authenticated user's Google Drive successfull</h2><script>window.close()</script></div>";
-            }
-            return $token;
-        }
     }
     
     public function updateFile($file){

@@ -42,9 +42,9 @@ class DriveApi{
             //$client->setRedirectUri($redirect_uri);
             
             if($token){
-                $client->setAccessToken($token);
+                $client->setAccessToken((array)$token);
                 if($client->isAccessTokenExpired() && $token->refresh_token){
-                    $newToken = $client->refreshToken( $token->refresh_token);
+                    $client->refreshToken( $token->refresh_token);
                     $client->refresh_token = $token->refresh_token;
                 }
             }else{
@@ -79,20 +79,6 @@ class DriveApi{
             //'orderBy' => 'folder,title asc'
         ));
     }
-    
-    public static function getInfor(){
-        $client = self::getClient();
-        $idToken = $client->getAccessToken()['id_token'];
-        if (substr_count($idToken, '.') == 2) {
-          $parts = explode('.', $idToken);
-          $payload = json_decode(base64_decode($parts[1]), true);
-          if ($payload && isset($payload['iat'])) {
-            $created = $payload['iat'];
-          }
-        }
-        return $payload;
-    }
-
     public static function getPermissions($fileId){        
         $service = new Google_Service_Drive(DriveApi::getClient());
         try {
@@ -161,11 +147,6 @@ class DriveApi{
             
         }
     }
-    
-    public static function getChanges($lastToken){
-        
-    }
-    
     public static function upload($source, $name){
         $user = Checkmydrive::getUser();
         if(isset($user->params->google->folder)){

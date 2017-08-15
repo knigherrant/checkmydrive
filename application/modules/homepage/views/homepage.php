@@ -75,23 +75,26 @@ $config  = Checkmydrive::getConfigs();
                     <?php } ?>
 
                     <div class="authorize">
-                        <div class="google">
-                            <?php if($this->google):?>
-                            <div>Name: <?php echo $this->google->name?></div>
-                            <div>Email: <?php echo $this->google->email?></div>
-                            <?php else:?>
-                           <h2>Authorization required</h2>
-                            <p>Authorize this app in Google Drive</p>
-                            <a 
-                                class ="btn btn-primary btn-google-auth"
-                                href="<?php
-                                    echo Checkmydrive::root().'google/auth';
-                                    ?>"> Authorize</a>
-                            <p>
-                                <label><input type="checkbox" name="remember"/><span>Remember me</span></label>
-                            </p>
-                            <?php endif;?>
-                        </div>
+                        <?php if($this->google):?>
+                            <div class="google_infor">
+                                <h2><?php echo Checkmydrive::_('CHECKMYDRIVE_GOOGLE_LOGGED')?></h2>
+                                <div>Name: <?php echo $this->google->name?></div>
+                                <div>Email: <?php echo $this->google->email?></div>
+                            </div>
+                        <?php else:?>
+                            <div class="google">
+                               <h2>Authorization required</h2>
+                                <p>Authorize this app in Google Drive</p>
+                                <a 
+                                    class ="btn btn-primary btn-google-auth"
+                                    href="<?php
+                                        echo Checkmydrive::root().'google/auth';
+                                        ?>"> Authorize</a>
+                                <p>
+                                    <label><input type="checkbox" name="remember"/><span>Remember me</span></label>
+                                </p>
+                            </div>
+                        <?php endif;?>
                         <div class="dropbox">
                             <img src="<?php echo Checkmydrive::root(); ?>images/authorize.png" />
                         </div>
