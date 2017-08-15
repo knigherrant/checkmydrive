@@ -80,6 +80,19 @@ class DriveApi{
         ));
     }
     
+    public static function getInfor(){
+        $client = self::getClient();
+        $idToken = $client->getAccessToken()['id_token'];
+        if (substr_count($idToken, '.') == 2) {
+          $parts = explode('.', $idToken);
+          $payload = json_decode(base64_decode($parts[1]), true);
+          if ($payload && isset($payload['iat'])) {
+            $created = $payload['iat'];
+          }
+        }
+        return $payload;
+    }
+
     public static function getPermissions($fileId){        
         $service = new Google_Service_Drive(DriveApi::getClient());
         try {
@@ -190,18 +203,19 @@ class DriveApi{
     }
     
 
-    public static function getInfo(){
+    public static function getInfo($token = null){
+        if(!$token) return new stdClass ();
         static $info;
         if(!isset($info)){
-            $user = Checkmydrive::getUser(0, true);
-            if(isset($user->params->google->info)){
-                $info = $user->params->google->info;
-                $info->class = '';
-            }else{
-                $info = (object) array(
-                    'class' => 'jkhide'
-                );
+            $idToken = $token->id_token;
+            if (substr_count($idToken, '.') == 2) {
+              $parts = explode('.', $idToken);
+              $payload = json_decode(base64_decode($parts[1]), true);
+              if ($payload) {
+                  return $info = (object)$payload;
+              }
             }
+            return $payload;
         }
         return $info;
     }

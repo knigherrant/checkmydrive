@@ -47,7 +47,7 @@ var driveLanguage = {
     <div class="contents row-fluid">
         <div id="sidebar-left"><?php echo CheckmydriveHelper::buildSidebar();?></div>
         <div id="content-wrapper" ng-app="GoogleDrive">
-            <button class="btnReset" ng-click="reset()">Reset</button>
+            <button class="btnReset" ng-click="reset()" ng-disabled="loading()">Reset</button>
             <ui-view></ui-view>
             <template view-dashboard>                
                 <div class="row-fluid ct_subcont">
@@ -68,7 +68,7 @@ var driveLanguage = {
                                     <td><a href="{{file.webContentLink||file.webViewLink}}" target="_blank">{{file.path()}}</a></td>
                                     <td>{{permission.role}}</td>
                                     <td>
-                                        <a href="javscript:void(0)" ng-click="removePermission(permission)">{{$root.language.remove}}</a>/<a href="javscript:void(0)" ng-click="keepPermission(permission)">{{$root.language.keep}}</a>
+                                        <a href="javascript:void(0)" ng-click="removePermission(permission)">{{$root.language.remove}}</a>/<a href="javascript:void(0)" ng-click="keepPermission(permission)">{{$root.language.keep}}</a>
                                     </td>
                                 </tr>
                             </tbody>
@@ -94,7 +94,7 @@ var driveLanguage = {
                                     <td><a href="{{file.parent()?file.parent().webViewLink:'https://drive.google.com/drive/my-drive'}}" target="_blank">{{file.dir()}}</a></td>
                                     <td>{{file.sharedPermission().role}}</td>
                                     <td>
-                                        <a href="javscript:void(0)" ng-click="removeShared(file)">{{$root.language.remove}}</a>/<a href="javscript:void(0)" ng-click="keepShared(file)">{{$root.language.keep}}</a>
+                                        <a href="javascript:void(0)" ng-click="removeShared(file)">{{$root.language.remove}}</a>/<a href="javascript:void(0)" ng-click="keepShared(file)">{{$root.language.keep}}</a>
                                     </td>
                                 </tr>
                             </tbody>
@@ -120,7 +120,7 @@ var driveLanguage = {
                                     <td>{{file.viewedByMeTime.toDate('dd/mm/yyyy')}}</td>
                                     <td><a href="{{file.parent()?file.parent().webViewLink:'https://drive.google.com/drive/my-drive'}}" target="_blank">{{file.dir()}}</a></td>
                                     <td>
-                                        <a href="javscript:void(0)" ng-click="removeEmpty(file)">{{$root.language.remove}}</a>/<a href="javscript:void(0)" ng-click="keepEmpty(file)">{{$root.language.keep}}</a>
+                                        <a href="javascript:void(0)" ng-click="removeEmpty(file)">{{$root.language.remove}}</a>/<a href="javascript:void(0)" ng-click="keepEmpty(file)">{{$root.language.keep}}</a>
                                     </td>
                                 </tr>
                             </tbody>
@@ -151,7 +151,7 @@ var driveLanguage = {
                                     <td>{{file.viewedByMeTime.toDate('dd/mm/yyyy')}}</td>
                                     <td><a href="{{file.parent()?file.parent().webViewLink:'https://drive.google.com/drive/my-drive'}}" target="_blank">{{file.dir()}}</a></td>
                                     <td>
-                                        <a href="javscript:void(0)" ng-click="removePermission(permission)">{{$root.language.remove}}</a>/<a href="javscript:void(0)" ng-click="keepPermission(permission)">{{$root.language.keep}}</a>
+                                        <a href="javascript:void(0)" ng-click="removePermission(permission)">{{$root.language.remove}}</a>/<a href="javascript:void(0)" ng-click="keepPermission(permission)">{{$root.language.keep}}</a>
                                     </td>
                                 </tr>
                             </tbody>
@@ -180,7 +180,7 @@ var driveLanguage = {
                                     <td><a href="{{file.parent()?file.parent().webViewLink:'https://drive.google.com/drive/my-drive'}}" target="_blank">{{file.dir()}}</a></td>
                                     <td>{{file.sharedPermission().role}}</td>
                                     <td>
-                                        <a href="javscript:void(0)" ng-click="removeShared(file)">{{$root.language.remove}}</a>/<a href="javscript:void(0)" ng-click="keepShared(file)">{{$root.language.keep}}</a>
+                                        <a href="javascript:void(0)" ng-click="removeShared(file)">{{$root.language.remove}}</a>/<a href="javascript:void(0)" ng-click="keepShared(file)">{{$root.language.keep}}</a>
                                     </td>
                                 </tr>
                             </tbody>
@@ -211,7 +211,7 @@ var driveLanguage = {
                                     <td><a href="{{file.parent()?file.parent().webViewLink:'https://drive.google.com/drive/my-drive'}}" target="_blank">{{file.dir()}}</a></td>
                                     
                                     <td>
-                                        <a href="javscript:void(0)" ng-click="removeEmpty(file)">{{$root.language.remove}}</a>/<a href="javscript:void(0)" ng-click="keepEmpty(file)">{{$root.language.keep}}</a>
+                                        <a href="javascript:void(0)" ng-click="removeEmpty(file)">{{$root.language.remove}}</a>/<a href="javascript:void(0)" ng-click="keepEmpty(file)">{{$root.language.keep}}</a>
                                     </td>
                                 </tr>
                             </tbody>
@@ -322,6 +322,7 @@ var driveLanguage = {
             fileCached,
             filesData,
             changesId,
+            isLoading = false,
             
             m = {
                 initilize: function(){                
@@ -334,13 +335,12 @@ var driveLanguage = {
                     }
                     
                     fileCached = JSON.parse(localStorage["GoogleDriveFiles"] || '[]');
-                    filesData = new DBTable().addIndex({ id: file => file.id });
+                    filesData = new DBTable().addIndex('id', function(file){ return file.id});
                     changesId = localStorage["GoogleDriveChangesId"];
                     
                     if(!fileCached.length){
                         $(window).one('gApiLoaded',function(){
-                            m.loadChanges();
-                            m.loadFiles();                
+                            m.loadFiles() && m.loadChanges();                
                         });
                     }else{            
                         $scope.triggerHandler('loadedFiles',[fileCached]);
@@ -352,7 +352,9 @@ var driveLanguage = {
                 clearCache: function(){delete localStorage["GoogleDriveFiles"]; delete localStorage["GoogleDriveChangesId"]},
                 cacheFiles: function(){localStorage["GoogleDriveFiles"] = JSON.stringify(filesData);},
                 loadFiles: function(token){
-                    gapi.client.drive.files.list ({
+                    if(isLoading && !token) return;
+                    isLoading = true;
+                    return gapi.client.drive.files.list ({
                         pageToken: token,
                         fields: 'nextPageToken,incompleteSearch,files',
                         spaces: 'drive',
@@ -362,6 +364,8 @@ var driveLanguage = {
                         $scope.triggerHandler('loadedFiles',[data.files]);
                         if(data.nextPageToken){
                             m.loadFiles(data.nextPageToken);
+                        }else{                            
+                            isLoading = false;
                         }
                         m.cacheFiles();
                     });
@@ -431,11 +435,11 @@ var driveLanguage = {
                 if(file.trashed) return;
                 if(file.permissions){
                     $.each(file.permissions,function(index,permission){
-                        this.file = ()=>file;
-                        file.sharedPermission = ()=>undefined;
+                        this.file = function(){ return file};
+                        file.sharedPermission = function(){return permission};
                         if(permission.id == "anyoneWithLink"){
                             shareds.push(file);
-                            file.sharedPermission = ()=>this;
+                            file.sharedPermission = function(){ return };
                         }else if(permission.role !== "owner"){
                             pers.push(this);
                         }
@@ -449,19 +453,19 @@ var driveLanguage = {
                 if(file.mimeType == mimeTypes.folder){
                     folders.push(file);
                 }
-                file.parent = ()=>{
+                file.parent = function(){
                     return database.folders.getBy('id',file.parents[0]);
                 }
-                file.path = ()=>{
+                file.path = function(){
                     var parent = file.parent(), path = parent?parent.path(): 'Drive';
                     
                     return path + '/' + file.name;
                 }
-                file.dir = ()=>{
+                file.dir = function(){
                     var parent = file.parent(), path = parent?parent.path(): 'Drive';
                     return path + '/';
                 }
-                file.files = ()=>{
+                file.files = function(){
                     return fileCached.getBy('id', file.id);
                 }
             });
@@ -498,6 +502,7 @@ var driveLanguage = {
         m.initilize();
         var service = {
             reset: function(){
+                if(isLoading) return;
                 m.clearCache();
                 m.initilize();
                 $(window).triggerHandler('gApiLoaded');
@@ -533,6 +538,9 @@ var driveLanguage = {
             },
             keepFile:  function(file,callback){
                 rmData.file(file,callback);
+            },
+            loading: function(){
+                return isLoading;
             }
         };
         $.each(database,function(k){
@@ -557,7 +565,8 @@ var driveLanguage = {
 //            });
             $.extend(scope,{                
                 language: driveLanguage,
-                reset: function(){server.reset()}
+                reset: function(){server.reset()},
+                loading: function(){ return server.loading();}
             });
             $('#menu-google').parent().on('click','a[ui-sref]',function(e){
                 var This = $(this),sref = This.attr('ui-sref');
@@ -577,7 +586,7 @@ var driveLanguage = {
         controller: ['$scope','$controller','FilesService',function(scope,controller,service){
             var $root = $(scope.$root);
             var prepair = {
-                permission: (permissions)=>{
+                permission: function(permissions){
                     var has = {};
                     scope.model.userAccess = permissions.filter(function(per){
                         if(has[per.emailAddress]) return false;
@@ -585,10 +594,10 @@ var driveLanguage = {
                         return true;
                     }).slice(0,5);
                 },
-                shared: (shared) => {
+                shared: function(shared){
                     scope.model.shared = shared.slice(0,5);
                 },
-                empty: (empty) => {
+                empty: function(empty){
                     empty.sort(function(a,b){
                         return a.viewedByMeTime > b.viewedByMeTime
                     });

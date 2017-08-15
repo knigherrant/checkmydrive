@@ -76,7 +76,21 @@ $config  = Checkmydrive::getConfigs();
 
                     <div class="authorize">
                         <div class="google">
-                            <img src="<?php echo Checkmydrive::root(); ?>images/authorize.png" />
+                            <?php if($this->google):?>
+                            <div>Name: <?php echo $this->google->name?></div>
+                            <div>Email: <?php echo $this->google->email?></div>
+                            <?php else:?>
+                           <h2>Authorization required</h2>
+                            <p>Authorize this app in Google Drive</p>
+                            <a 
+                                class ="btn btn-primary btn-google-auth"
+                                href="<?php
+                                    echo Checkmydrive::root().'google/auth';
+                                    ?>"> Authorize</a>
+                            <p>
+                                <label><input type="checkbox" name="remember"/><span>Remember me</span></label>
+                            </p>
+                            <?php endif;?>
                         </div>
                         <div class="dropbox">
                             <img src="<?php echo Checkmydrive::root(); ?>images/authorize.png" />

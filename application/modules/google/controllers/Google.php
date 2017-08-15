@@ -16,15 +16,13 @@ class Google extends Public_Controller
             }else{
                 redirect('/google/auth');
             }
-            $this->load->library('DriveApi');
             $client = $this->client = DriveApi::getClient($token);
-
             if($client->isAccessTokenExpired()){
                 redirect('/google/auth');
             }        
             if(isset($client->refresh_token)){
                 $token = $client->getAccessToken();
-                $token->refresh_token = $client->refresh_token;
+                $token->refresh_token = $client->refresh_token; 
                 $this->model->saveToken($token);
                 Checkmydrive::getDbo(true)->where('id', $user->id)->set('params',  json_encode($params))->update('users');
             }
@@ -38,17 +36,15 @@ class Google extends Public_Controller
         if($code = $this->input->get('code')){
             $token = $client->fetchAccessTokenWithAuthCode($code);
             if(isset($token['error'])){
-                $this->template->build(__FUNCTION__,'google');
-            }else{                
-                switch($this->model->saveToken($token)){
-                    case -1: return $this->template->build(__FUNCTION__,'google');
-                    case 0: return;
-                    case 1: return redirect('/google');
-                    case 2: return redirect('/google/batch');
-                };
+                //$this->template->build(__FUNCTION__,'google');
+                redirect($this->client->createAuthUrl());
+            }else{
+                $this->model->saveToken($token);
+                return redirect('/google');                
             }
-        }else{            
-            $this->template->build(__FUNCTION__,'google');
+        }else{
+            redirect($this->client->createAuthUrl());
+            //$this->template->build(__FUNCTION__,'google');
         }        
     }
     public function index()
