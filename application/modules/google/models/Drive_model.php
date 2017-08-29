@@ -6,12 +6,14 @@ class Drive_model extends CI_Model {
         $rs = 0;
         $user = Checkmydrive::getUser();
         $params = ($user->params)? $user->params : new stdClass();
+        if(!$params) $params = new stdClass ();
+        $lastInfor = null;
         if(isset($params->google)){
             $rs = 1;
+        $lastInfor = DriveApi::getInfo($params->google);
         }else{
             $rs = 2;
         }
-        $lastInfor = DriveApi::getInfo($params->google);
         if($lastInfor){
             $infor = DriveApi::getInfo($token);
             if($lastInfor->email != $infor->email){

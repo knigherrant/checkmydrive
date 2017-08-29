@@ -13,7 +13,8 @@ class Homepage extends Public_Controller
         $this->load->library('DriveApi'); 
         
         $this->user = CheckmydriveHelper::getUser();
-        $this->google = DriveApi::getInfo($this->user->params->google);
+        $this->google =  $this->getGoogle();
+        
         
         $view = strtolower(get_class($this));
         
@@ -23,7 +24,9 @@ class Homepage extends Public_Controller
     }
     
     private function getGoogle(){
-        return Checkmydrive::getUser()->params->google;
+        
+        if(!isset($this->user->params->google)) return;
+        return DriveApi::getInfo($this->user->params->google);
     }
     
     private function getDropbox(){

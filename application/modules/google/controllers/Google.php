@@ -9,9 +9,10 @@ class Google extends Public_Controller
         $this->load->library('DriveApi');        
         $this->model = Checkmydrive::getModel('Drive');
         $params = Checkmydrive::getUser()->params;
+        if(!$params) $params = (object)array('google' => null);
         $token = $params->google;
         $client = $this->client = DriveApi::getClient($token);
-        if(!$this->client->isAccessTokenExpired()){
+        if($token && !$this->client->isAccessTokenExpired()){
             if(isset($client->refresh_token)){
                 $token = $client->getAccessToken();
                 $token['refresh_token'] = $client->refresh_token;
@@ -32,7 +33,7 @@ class Google extends Public_Controller
         $this->client->setRedirectUri(Checkmydrive::root().'google/auth');
         if($code = $this->input->get('code')){
             try{                
-                $token = $client->fetchAccessTokenWithAuthCode($code);
+                $token = $this->client->fetchAccessTokenWithAuthCode($code);
             } catch (Exception $e){
                 redirect($this->client->createAuthUrl());
             }

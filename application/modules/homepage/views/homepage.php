@@ -75,7 +75,7 @@ $config  = Checkmydrive::getConfigs();
                     <?php } ?>
 
                     <div class="authorize">
-                        <?php if($this->google):?>
+                        <?php if($this->google && isset($this->google->email)):?>
                             <div class="google_infor">
                                 <h2><?php echo Checkmydrive::_('CHECKMYDRIVE_GOOGLE_LOGGED')?></h2>
                                 <div>Name: <?php echo $this->google->name?></div>
