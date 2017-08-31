@@ -57,10 +57,15 @@ $address = array(
 $type = (Checkmydrive::isBusiness())? 'Business' : 'Personal';
 ?>
 
+<script>
+    jQuery(function($){
+        <?php if($errors) foreach ($errors as $m) { ?>
+                new PNotify({text: '<?php echo $m; ?>', type: 'alert'});
+        <?php } ?>
+    })
+</script>
+
 <h3 class="page-title"><?php echo Checkmydrive::_('Sign Up For Checkmydrive ' . $type); ?></h3>
-
-
-
 <div class="auth-form">
 <?php echo form_open($this->uri->uri_string()); ?>
 

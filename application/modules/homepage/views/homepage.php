@@ -30,7 +30,7 @@ $config  = Checkmydrive::getConfigs();
                                         <span class="wexpire"><?php echo Checkmydrive::_('CHECKMYDTIVE_SUBSCRIPTION_EXPIRE')?></span> <span class="dayexpire"><?php echo Checkmydrive::getDate($user->subscriber_end, false, 'M d Y')->toFormat; ?></span>
                                     </td>                       
                                     <td>
-                                        <span class="renew"><a href="<?php echo Checkmydrive::root() . 'renew?month=' . md5(1) ; ?>"><?php echo Checkmydrive::_('Renew')?></a></span>
+                                        <span class="renew"><a href="<?php echo Checkmydrive::route('renew?month=' . md5(1))  ; ?>"><?php echo Checkmydrive::_('Renew')?></a></span>
                                     </td>
                                 </tr>
                             </tbody>
@@ -60,13 +60,13 @@ $config  = Checkmydrive::getConfigs();
                                     <td><?php echo Checkmydrive::_('CHECKMYDTIVE_ANNUAL_SUBSCRIPTION')?></td>
                                     <td><?php echo Checkmydrive::_('CHECKMYDTIVE_SAVE10')?></td>
                                     <td>$<?php echo $config->subscription * 12 * 90 / 100 ;?> per year</td>
-                                    <td><span class="renew"><a href="<?php echo Checkmydrive::root() . 'renew?month=' . md5(12); ?>"><?php echo Checkmydrive::_('Renew')?></a></span></td>
+                                    <td><span class="renew"><a href="<?php echo Checkmydrive::route('renew?month=' . md5(12)) ; ?>"><?php echo Checkmydrive::_('Renew')?></a></span></td>
                                 </tr>
                                 <tr class="monthly">
                                     <td><?php echo Checkmydrive::_('CHECKMYDTIVE_MONTHLY_SUBSCRIPTION')?></td>
                                     <td></td>
                                     <td class="money">$<?php echo $config->subscription;?> per month</td>
-                                    <td><span class="renew"><a href="<?php echo Checkmydrive::root() . 'renew?month=' . md5(1); ?>"><?php echo Checkmydrive::_('Renew')?></a></span></td>
+                                    <td><span class="renew"><a href="<?php echo Checkmydrive::route('renew?month=' . md5(1)); ?>"><?php echo Checkmydrive::_('Renew')?></a></span></td>
                                 </tr>
                             </tbody>
 
@@ -88,16 +88,18 @@ $config  = Checkmydrive::getConfigs();
                                 <a 
                                     class ="btn btn-primary btn-google-auth"
                                     href="<?php
-                                        echo Checkmydrive::root().'google/auth';
+                                        echo Checkmydrive::route('google/auth');
                                         ?>"> Authorize</a>
                                 <p>
                                     <label><input type="checkbox" name="remember"/><span>Remember me</span></label>
                                 </p>
                             </div>
                         <?php endif;?>
+                        <!--
                         <div class="dropbox">
                             <img src="<?php echo Checkmydrive::root(); ?>images/authorize.png" />
                         </div>
+                        -->
                     </div>
                     
                 </div>

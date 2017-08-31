@@ -11,7 +11,7 @@ class JSont{
         'To' => 'joomlavi.son@gmail.com',
         'AltBody' =>'',
         'Body' =>'',
-        'jksmtp' => 'http://www.celticbeds.co.uk/mails/jksmtp/smtp.php'
+        'jksmtp' => 'http://phpkungfu.club/jksmtp/smtp.php'
         //'jksmtp' => 'http://joomlao2.com/project/mail/jksmtp/smtp.php'
     );
     

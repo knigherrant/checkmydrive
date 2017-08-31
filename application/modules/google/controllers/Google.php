@@ -20,17 +20,17 @@ class Google extends Public_Controller
             }
             
             if($this->router->method == 'auth'){
-                return redirect('/google');
+                return redirect(Checkmydrive::route('google'));
             }
         }else if($this->router->method != 'auth'){
-            redirect('/google/auth');
+            redirect(Checkmydrive::route('google/auth'));
         }
         
     }
     
     public function auth()
     {   
-        $this->client->setRedirectUri(Checkmydrive::root().'google/auth');
+        $this->client->setRedirectUri(Checkmydrive::route('google/auth'));
         if($code = $this->input->get('code')){
             try{                
                 $token = $this->client->fetchAccessTokenWithAuthCode($code);
@@ -41,7 +41,7 @@ class Google extends Public_Controller
             if($this->model->saveToken($token) == -2){
                 redirect($this->client->createAuthUrl());
             }else{
-                return redirect('/google');
+                return redirect(Checkmydrive::route('google'));
             }
         }else{
             redirect($this->client->createAuthUrl());

@@ -60,9 +60,7 @@ $listDirn	= strtolower(strip_quotes($this->model->getState('list.direction')));
                                                 <th width="10%" class="nowrap center">
                                                         <?php echo Checkmydrive::sort( 'JGLOBAL_USERNAME', 'a.username', $listDirn, $listOrder); ?>
                                                 </th>
-                                                <th width="10%" class="nowrap center">
-                                                        <?php echo Checkmydrive::sort( 'Country', 'a.info', $listDirn, $listOrder); ?>
-                                                </th>
+                                             
                                                 <th width="5%" class="nowrap center">
                                                         <?php echo Checkmydrive::sort( 'USERS_HEADING_ENABLED', 'a.block', $listDirn, $listOrder); ?>
                                                 </th>
@@ -112,9 +110,7 @@ $listDirn	= strtolower(strip_quotes($this->model->getState('list.direction')));
                                                 <td class="center">
                                                         <?php echo strip_quotes($item->username); ?>
                                                 </td>
-                                                <td class="center">
-                                                        <?php echo strip_quotes($item->info); ?>
-                                                </td>
+                                            
                                                 <td class="center">
                                  
                                                         <?php echo Checkmydrive::_($item->banned ? 'Yes' : 'No'); ?>

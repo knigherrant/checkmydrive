@@ -70,7 +70,8 @@ class Checkmydrive extends CheckmydriveHelper{
         $base = rtrim($base , '/');
         if(!$url) return $base;
         $url = ltrim($url , '/');
-        return  $base . '/'. $url;
+        //return  $base . '/'. $url;
+        return  $base . '/index.php/'. $url;
     }
     
     public static function getDbo($master = false, $sale = false){
@@ -1137,7 +1138,11 @@ class CheckmydriveHelper
                     array('href'=>'dropbox/files', 'text'=>Checkmydrive::_('EMPTY FILES')),
                 )
             ),
-            array('href'=>'profile', 'text'=>Checkmydrive::_('MY ACCOUNT')),
+            array('href'=>'profile', 'text'=>Checkmydrive::_('MY ACCOUNT'), 'pClass' => 'children',
+                'childs' => array(
+                    array('href'=>  'logout', 'text'=>Checkmydrive::_('Logout')),
+                )
+            ),
         );
         $uri = Checkmydrive::uri();
         return self::buildMenus($sidebars, [$uri->view,$uri->layout]);

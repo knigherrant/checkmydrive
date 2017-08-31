@@ -10,7 +10,7 @@
         <field name="phone" type="text" label="CHECKMYDTIVE_CONFIG_PHONE_LBL" description="CHECKMYDTIVE_CONFIG_PHONE_DESC" default="Your Phone"/>
         <field name="default_terms" type="textarea" label="CHECKMYDTIVE_CONFIG_DEFAULT_TERMS_LBL" rows="7" description="CHECKMYDTIVE_CONFIG_DEFAULT_TERMS_DESC" default="Thank you for your business. We do expect payment within {due_date}, so please process this invoice within that time."/>
         <field name="date_format" type="text" label="CHECKMYDTIVE_CONFIG_DATE_FORMAT_LBL" description="CHECKMYDTIVE_CONFIG_DATE_FORMAT_DESC" default="d/m/Y"/>
-        <field name="google" type="google" label="" description="" default=""/>
+        <!--<field name="google" type="google" label="" description="" default=""/>-->
 	</fieldset>
         
         

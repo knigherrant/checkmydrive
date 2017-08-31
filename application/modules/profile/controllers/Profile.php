@@ -35,8 +35,8 @@ class Profile extends Public_Controller
     public function saveUser(){
         $CI = get_instance();
         $data = $this->input->get_post('user');
-        if(!isset($data['id'])) $data['id'] = Clientrol::getUser()->id;
-        $db = Clientrol::getDbo(true);
+        if(!isset($data['id'])) $data['id'] = Checkmydrive::getUser()->id;
+        $db = Checkmydrive::getDbo(true);
         if(isset($data['password'])){
             if($data['password'] == $data['password2']){
                 $hasher = new PasswordHash(
@@ -47,7 +47,7 @@ class Profile extends Public_Controller
                 unset($data['password2']);
 
             }else{
-                exit(json_encode(array('rs'=>true, 'msg'=>Clientrol::_('The passwords you entered do not match!'))));
+                exit(json_encode(array('rs'=>true, 'msg'=>Checkmydrive::_('The passwords you entered do not match!'))));
             }
         }else{
             unset($data['password']);
@@ -56,9 +56,9 @@ class Profile extends Public_Controller
         $db->where('id', $data['id']);
         $sucess = $db->update('users', $data);
         //Set new session
-        //$session = Clientrol::getSession();
+        //$session = Checkmydrive::getSession();
         //$session->set('user', new JUser($user->id));
-        exit(json_encode(array('rs'=>true, 'msg'=>Clientrol::_('CLIENTROL_MSG_SUCCESSFULLY'))));
+        exit(json_encode(array('rs'=>true, 'msg'=>Checkmydrive::_('CLIENTROL_MSG_SUCCESSFULLY'))));
     }
     
     

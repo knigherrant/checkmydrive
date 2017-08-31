@@ -19,8 +19,8 @@ else{
     <img src="<?php echo Checkmydrive::urlTheme(true) . 'assets/images/loading-p.gif'; ?>" />
     <div class="jomkungfu jform" style="display: none">
         <?php echo CheckmydriveHelper::buildPaypalForm( 
-            Checkmydrive::root().'subscription?return=success',
-            Checkmydrive::root().'subscription?return=cancel',
+            Checkmydrive::route('subscription?return=success'),
+            Checkmydrive::route('subscription?return=cancel'),
             $msg,
             1,
             CheckmydriveHelper::formatMoney($price),
